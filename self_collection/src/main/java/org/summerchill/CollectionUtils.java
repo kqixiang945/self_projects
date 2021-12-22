@@ -91,7 +91,7 @@ public class CollectionUtils {
      */
     public static HiveTable findHiveTableSpecifyTblNameValueFormList(final List<HiveTable> hiveTableList, final String tableName) {
         try {
-            return hiveTableList.stream().filter(o -> o.getHiveTableName().equalsIgnoreCase(tableName)).findFirst().get();
+            //return hiveTableList.stream().filter(o -> o.getHiveTableName().equalsIgnoreCase(tableName)).findFirst().get();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,6 +57,14 @@ public class StringUtils {
         //10.非可见字符转换成字符串,然后放入到一个文件中(直接打印店到控制台打印出来的内容可能对于这些非可见字符显示不准确).
         char ctrlA = 0x1;
         System.out.println(getNonVisibleChar(ctrlA));
+
+        //11.字符串转换成为字符数组(建议以后这种直接设置StandardCharsets.UTF_8,否则不加编码设置遇到中文就会乱码.
+        String s = "some text here";
+        byte[] b = s.getBytes(StandardCharsets.UTF_8);
+
+        //12.字符数组转换成字符串
+        byte[] bytesArr = {(byte) 99, (byte)97, (byte)116};
+        String bytesArrStr = new String(b, StandardCharsets.US_ASCII);
 
     }
 

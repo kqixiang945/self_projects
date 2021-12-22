@@ -31,38 +31,20 @@
             <artifactId>orc-tools</artifactId>
             <version>1.6.3</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.orc</groupId>
             <artifactId>orc-mapreduce</artifactId>
             <version>1.6.3</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
             <version>3.3.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>29.0-jre</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.parquet</groupId>
-            <artifactId>parquet-hadoop</artifactId>
-            <version>1.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.parquet</groupId>
-            <artifactId>parquet-avro</artifactId>
-            <version>1.8.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.parquet</groupId>
-            <artifactId>parquet-column</artifactId>
-            <version>1.7.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.avro</groupId>

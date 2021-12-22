@@ -36,6 +36,7 @@
         <module>self_orc_parquet</module>
         <module>self_guava</module>
         <module>self_elasticsearch</module>
+        <module>self_mathematics</module>
     </modules>
 
     <properties>

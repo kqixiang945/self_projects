@@ -1,5 +1,4 @@
 HELP.md
-self_tools/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
@@ -13,11 +12,18 @@ self_tools/target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea/
-*.iws
+# IntelliJ project files
+.idea
+.settings
+.classpath
+.project
 *.iml
-*.ipr
+*.log
+target
+out
+gen
+logs
+/bin/
 
 ### Maven ###
 .mvn
