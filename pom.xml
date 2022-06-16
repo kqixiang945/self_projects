@@ -37,6 +37,7 @@
         <module>self_guava</module>
         <module>self_elasticsearch</module>
         <module>self_mathematics</module>
+        <module>self_algorithm</module>
     </modules>
 
     <properties>

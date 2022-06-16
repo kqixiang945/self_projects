@@ -10,6 +10,12 @@ import java.util.stream.IntStream;
 public class CollectionUtils {
 
     public static void main(String[] args) {
+
+        //loop map
+        loopMap(new HashMap<String,String>());
+        //loop a map with filter in java8
+        loopMap(new HashMap<String,String>());
+
         //1.把一个数组转换成List
         List<String> arry2List = convertArrayToList(new String[]{"aaa", "bbb"});
 
@@ -32,6 +38,63 @@ public class CollectionUtils {
     }
 
     /**
+     * remove empty element in a list
+     * @param list
+     * @return
+     */
+    private static List<String> removeListEmptyElement1(List<String> list){
+        list.removeAll(Arrays.asList("", null));
+        return list;
+    }
+
+    private static List<String> removeListEmptyElement2(List<String> list){
+        list.removeIf(item -> item == null || "".equals(item));
+        return list;
+    }
+
+    /**
+     * loop a map different ways
+     * @param map
+     */
+    private static void loopMap(HashMap<String, String> map) {
+        // Standard classic way, recommend!
+        System.out.println("\nExample 1...");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
+        }
+
+        // Java 8, forEach and Lambda. recommend!
+        System.out.println("\nExample 2...");
+        map.forEach((k, v) -> System.out.println("Key : " + k + " Value : " + v));
+
+        // Map -> Set -> Iterator -> Map.Entry -> troublesome, don't use, just for fun
+        System.out.println("\nExample 3...");
+        Iterator<Map.Entry<String, String>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, String> entry = iterator.next();
+            System.out.println("Key : " + entry.getKey() + " Value :" + entry.getValue());
+        }
+
+        // weired, but works anyway, don't use, just for fun
+        System.out.println("\nExample 4...");
+        for (Object key : map.keySet()) {
+            System.out.println("Key : " + key.toString() + " Value : " + map.get(key));
+        }
+
+    }
+
+    /**
+     * loop map with filter
+     * @param map
+     */
+    private static void loopMapWithFilter(HashMap<String, String> map) {
+        map.entrySet().stream()
+                .filter(x -> "Jan".equals(x.getValue()))
+                .forEach( x -> System.out.println("Key : " + x.getKey() + " Value : " + x.getValue()));
+    }
+
+
+    /**
      * 打印一个集合中的所有元素
      */
     public static void printCollectionElement(){
@@ -39,8 +102,6 @@ public class CollectionUtils {
         //一行一个元素
         tempSet.stream().forEach(s -> System.out.println(s));
         //中间用逗号隔开
-
-
 
     }
 
@@ -66,6 +127,7 @@ public class CollectionUtils {
      */
     public static boolean judgeArrayContainSpecifyElement2(String[] array, String specifyStr) {
         boolean containFlag = Arrays.stream(array).anyMatch(specifyStr::equals);
+        //boolean contains = Arrays.stream(mysqlReservedArray).anyMatch(filed.toUpperCase()::equals);
         return containFlag;
     }
 

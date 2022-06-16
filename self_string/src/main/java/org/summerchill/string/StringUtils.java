@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -66,7 +68,42 @@ public class StringUtils {
         byte[] bytesArr = {(byte) 99, (byte)97, (byte)116};
         String bytesArrStr = new String(b, StandardCharsets.US_ASCII);
 
+        //13.generate uuid
+
+
+        //14.remove nonvisuable char
+        removeInvisibleChars("tweewewe");
+
+
+
     }
+
+    /**
+     * remove a string first and last char
+     * @param str
+     * @return
+     */
+    public static String removeFirstandLast(String str) {
+        if(!Strings.isNullOrEmpty(str)){
+            // Removing first and last character of a string using substring() method
+            str = str.substring(1, str.length() - 1);
+            // Return the modified string
+            return str;
+        } else{
+            return "";
+        }
+    }
+
+    public static String removeInvisibleChars(String text) {
+        // strips off all non-ASCII characters
+        text = text.replaceAll("[^\\x00-\\x7F]", "");
+        // erases all the ASCII control characters
+        text = text.replaceAll("[\\p{Cntrl}&&[^\r\n\t]]", "");
+        // removes non-printable characters from Unicode
+        text = text.replaceAll("\\p{C}", "");
+        return text.trim();
+    }
+
 
     /**
      * 非可见字符转换成普通字符串(主要就是使用的非可见字符的ASCII码,可以用各种进制的表示)
@@ -115,6 +152,20 @@ public class StringUtils {
         return Pattern.compile(upperNumRegex).matcher(varStr).find();
     }
 
+
+    /**
+     * https://stackoverflow.com/questions/5192512/how-can-i-clear-or-empty-a-stringbuilder
+     * 1. setLength(0)   2. new one object   blew are difference about the two ways
+     * There are basically two alternatives, using setLength(0) to reset the StringBuilder or creating a new one in each iteration. Both can have pros and cons depending on the usage.
+     * If you know the expected capacity of the StringBuilder beforehand, creating a new one each time should be just as fast as setting a new length. It will also help the garbage collector, since each StringBuilder will be relatively short-lived and the gc is optimized for that.
+     * When you don't know the capacity, reusing the same StringBuilder might be faster. Each time you exceed the capacity when appending, a new backing array has to be allocated and the previous content has to be copied. By reusing the same StringBuilder, it will reach the needed capacity after some iterations and there won't be any copying thereafter.
+     * make stringBuilder object empty
+     * @param stringBuilder
+     */
+    public static StringBuilder cleanStringBuilder(StringBuilder stringBuilder){
+        stringBuilder.setLength(0);
+        return stringBuilder;
+    }
 
     /**
      * 从一个key=value形式的文件内容中组织成一个Map
@@ -169,6 +220,64 @@ public class StringUtils {
             if (ele.equalsIgnoreCase("\n") || Strings.isNullOrEmpty(ele) || ele.equalsIgnoreCase("\r")) {
                 it.remove();
             }
+        }
+    }
+
+    /**
+     * remove non-ASCII,ASCII control,non-printable characters
+     * @param text
+     * @return
+     */
+    public static String cleanTextContent(String text) {
+        // strips off all non-ASCII characters
+        text = text.replaceAll("[^\\x00-\\x7F]", "");
+        // erases all the ASCII control characters
+        text = text.replaceAll("[\\p{Cntrl}&&[^\r\n\t]]", "");
+        // removes non-printable characters from Unicode
+        text = text.replaceAll("\\p{C}", "");
+        return text.trim();
+    }
+
+    /**
+     * 将unicode码转化成字符串
+     *
+     * @param unicode
+     * @return
+     * @author shuai.ding
+     */
+    public static String unicode2String(String unicode) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(unicode)) {
+            return null;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        int i = -1;
+        int pos = 0;
+
+        while ((i = unicode.indexOf("\\u", pos)) != -1) {
+            sb.append(unicode.substring(pos, i));
+            if (i + 5 < unicode.length()) {
+                pos = i + 6;
+                sb.append((char) Integer.parseInt(unicode.substring(i + 2, i + 6), 16));
+            }
+        }
+        //如果pos位置后，有非中文字符，直接添加
+        sb.append(unicode.substring(pos));
+
+        return sb.toString();
+    }
+
+    /**
+     * urlEncode a string
+     * @param value
+     * @return
+     */
+    // Method to encode a string value using `UTF-8` encoding scheme
+    public static String urlEncodeValue(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException ex) {
+            throw new RuntimeException(ex.getCause());
         }
     }
 
@@ -244,6 +353,16 @@ public class StringUtils {
             System.exit(-1);
         }
         return null;
+    }
+
+    /**
+     * count = 20, pagesize = 3 => 7pages
+     * @param num
+     * @param divisor
+     * @return
+     */
+    public static int roundUp(String num, String divisor) {
+        return (Integer.valueOf(num) + Integer.valueOf(divisor) - 1) / Integer.valueOf(divisor);
     }
 
     /**

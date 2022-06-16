@@ -56,7 +56,15 @@ public class DateUtils {
         //unix时间转换成指定的
         System.out.println(unixTime2DateTime(String.valueOf(System.currentTimeMillis()/1000),"yyyy-MM-dd HH:mm:ss"));
         System.out.println(unixTime2DateTime2(String.valueOf(System.currentTimeMillis()/1000),"yyyy-MM-dd HH:mm:ss"));
+
+
+
+
     }
+
+
+
+
 
 
     public static String unixTime2DateTime(String unixTime, String pattern) {
@@ -178,6 +186,17 @@ public class DateUtils {
     }
 
     /**
+     * 获取当前的时间戳(秒级)
+     *
+     * @return
+     */
+    public static long getCurrentTimeStampSecond2() {
+        long timestamp = System.currentTimeMillis() / 1000;
+        return timestamp;
+    }
+
+
+    /**
      * 获取指定一天的开始的unix时间(毫秒)
      *
      * @param date
@@ -279,6 +298,30 @@ public class DateUtils {
         long days = hours / 24;
         hours %= 24;
         return days + "d " + hours + "h " + minutes + "m";
+    }
+
+    /**
+     * 获取指定日期的开始时间
+     *
+     * @param date
+     * @return
+     */
+    public static Date atStartOfDay(Date date) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        LocalDateTime startOfDay = localDateTime.with(LocalTime.MIN);
+        return localDateTimeToDate(startOfDay);
+    }
+
+    /**
+     * 获取指定日期的结束时间
+     *
+     * @param date
+     * @return
+     */
+    public static Date atEndOfDay(Date date) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        LocalDateTime endOfDay = localDateTime.with(LocalTime.MAX);
+        return localDateTimeToDate(endOfDay);
     }
 
 }

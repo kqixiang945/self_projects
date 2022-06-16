@@ -22,7 +22,7 @@ public class ORCReaderAndWriter {
         //String filePath = testWrite();
         //readTest(filePath);
 
-        String filePath = "/Users/kongxiaohan/Desktop/000000_0_o";
+        String filePath = "/Users/kongxiaohan/Desktop/app_a03_big_data_11_ac_traffic.orc";
         readTest(filePath);
     }
 
@@ -77,8 +77,7 @@ public class ORCReaderAndWriter {
     private static void readTest(String filePath) throws IOException {
         Configuration conf = new Configuration();
         conf.setAllowNullValueProperties(true);
-        Reader reader = OrcFile.createReader(new Path(filePath),
-                OrcFile.readerOptions(conf));
+        Reader reader = OrcFile.createReader(new Path(filePath), OrcFile.readerOptions(conf));
 
         RecordReader rows = reader.rows();
         VectorizedRowBatch batch = reader.getSchema().createRowBatch();
@@ -98,18 +97,15 @@ public class ORCReaderAndWriter {
             BytesColumnVector cols2 = (BytesColumnVector) batch.cols[2];
             BytesColumnVector cols3 = (BytesColumnVector) batch.cols[3];
             BytesColumnVector cols4 = (BytesColumnVector) batch.cols[4];
-            BytesColumnVector cols5 = (BytesColumnVector) batch.cols[5];
-            BytesColumnVector cols6 = (BytesColumnVector) batch.cols[6];
-            BytesColumnVector cols7 = (BytesColumnVector) batch.cols[7];
-            BytesColumnVector cols8 = (BytesColumnVector) batch.cols[8];
-            BytesColumnVector cols9 = (BytesColumnVector) batch.cols[9];
-            BytesColumnVector cols10 = (BytesColumnVector) batch.cols[10];
+            LongColumnVector cols5 = (LongColumnVector) batch.cols[5];
+            LongColumnVector cols6 = (LongColumnVector) batch.cols[6];
+            LongColumnVector cols7 = (LongColumnVector) batch.cols[7];
+            LongColumnVector cols8 = (LongColumnVector) batch.cols[8];
+            LongColumnVector cols9 = (LongColumnVector) batch.cols[9];
+            LongColumnVector cols10 = (LongColumnVector) batch.cols[10];
             BytesColumnVector cols11 = (BytesColumnVector) batch.cols[11];
             BytesColumnVector cols12 = (BytesColumnVector) batch.cols[12];
             BytesColumnVector cols13 = (BytesColumnVector) batch.cols[13];
-            BytesColumnVector cols14 = (BytesColumnVector) batch.cols[14];
-            BytesColumnVector cols15 = (BytesColumnVector) batch.cols[15];
-
 
             for (int cols = 0; cols < batch.numCols; cols++) {
                 System.out.println("args = [" + batch.cols[cols].type + "]");
@@ -130,24 +126,20 @@ public class ORCReaderAndWriter {
                 //              String timeV = new String(insertTime.vector[r], insertTime.start[r], insertTime.length[r]);
                 //              String value2 = jobId.length[r] == 0 ? "": new String(jobId.vector[r], jobId.start[r], jobId.length[r]);
 
-
-
                 String a0 = cols0.toString(r);
                 String a1 = cols1.toString(r);
                 String a2 = cols2.toString(r);
                 String a3 = cols3.toString(r);
                 String a4 = cols4.toString(r);
-                String a5 = cols5.toString(r);
-                String a6 = cols6.toString(r);
-                String a7 = cols7.toString(r);
-                String a8 = cols8.toString(r);
-                String a9 = cols9.toString(r);
-                String a10 = cols10.toString(r);
+                Long a5 = cols5.vector[r];
+                Long a6 = cols6.vector[r];
+                Long a7 = cols7.vector[r];
+                Long a8 = cols8.vector[r];
+                Long a9 = cols9.vector[r];
+                Long a10 = cols10.vector[r];
                 String a11 = cols11.toString(r);
                 String a12 = cols12.toString(r);
                 String a13 = cols13.toString(r);
-                String a14 = cols14.toString(r);
-                String a15 = cols15.toString(r);
                 System.out.println(a1 + ", " + a2);
             }
         }

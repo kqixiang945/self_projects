@@ -33,7 +33,6 @@ public class QueryRunnerTest {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-
             JDBCUtils.closeResource(conn, null);
         }
 
